@@ -6,8 +6,4 @@
         <RootNamespace>MMORPG_Server</RootNamespace>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Folder Include="ClientFilesForUnity" />
-    </ItemGroup>
-
 </Project>

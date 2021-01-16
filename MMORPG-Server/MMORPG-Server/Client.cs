@@ -2,6 +2,7 @@ using System;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using MMORPG_Server.Packet;
 
 namespace MMORPG_Server {
     public class Client {
@@ -10,8 +11,10 @@ namespace MMORPG_Server {
         public TCP tcp;
         public Client(int id) {
             this.id = id;
-            this.tcp = new TCP(id);
+            tcp = new TCP(id);
         }
+
+        #region TCP
 
         public class TCP {
             public TcpClient socket;
@@ -25,10 +28,23 @@ namespace MMORPG_Server {
                 this.socket = socket;
                 socket.ReceiveBufferSize = dataBufferSize;
                 socket.SendBufferSize = dataBufferSize;
+                Console.WriteLine("Sending welcome message");
 
                 stream = socket.GetStream();
                 receiverBuffer = new byte[dataBufferSize];
                 stream.BeginRead(receiverBuffer, 0, dataBufferSize, ReceiveCallBack, null);
+                ServerSend.Welcome(id, "Welcome to the server!");
+            }
+
+            public void SendData(Packet.Packet packet) {
+                try {
+                    if (socket != null) {
+                        stream.BeginWrite(packet.ToArray(), 0,
+                            packet.Length(), null, null);
+                    }
+                } catch (Exception exception) {
+                    Console.WriteLine($"Error sending TCP data to client {id} -- Error:\n{exception}");                    
+                }
             }
 
             private void ReceiveCallBack(IAsyncResult result) {
@@ -49,5 +65,6 @@ namespace MMORPG_Server {
                 }
             }
         }
+        #endregion
     }
 }

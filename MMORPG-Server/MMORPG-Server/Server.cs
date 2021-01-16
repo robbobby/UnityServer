@@ -16,20 +16,21 @@ namespace MMORPG_Server {
             Console.WriteLine("Server starting");
             tcpListener = new TcpListener(IPAddress.Any, Port);
             tcpListener.Start();
-            tcpListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null);
+            tcpListener.BeginAcceptTcpClient(new AsyncCallback(TcpConnectCallback), null);
             Console.WriteLine($"Server started on {Port}");
             InitServerData();
         }
 
-        private static void TCPConnectCallback(IAsyncResult result) {
+        private static void TcpConnectCallback(IAsyncResult result) {
             TcpClient client = tcpListener.EndAcceptTcpClient(result);
-            tcpListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null);
+            tcpListener.BeginAcceptTcpClient(new AsyncCallback(TcpConnectCallback), null);
             Console.WriteLine($"{client.Client.RemoteEndPoint} attempting to make a connection...");
             for (int i = 1; i != MaxPlayers; i++) {
                 Console.WriteLine(i);
                 if (clients[i].tcp.socket == null) {
                     clients[i].tcp.Connect(client);
-                    Console.WriteLine($"{client.Client.RemoteEndPoint} found socket: {i} -- Connecting...");
+                    Console.WriteLine(clients[i].tcp.socket.Client);
+                    Console.WriteLine($"{client.Client.RemoteEndPoint} found socket: {i} -- Connected...");
                     return;
                 }
             }
