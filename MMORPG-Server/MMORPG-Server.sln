@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MMORPG-Server", "MMORPG-Server\MMORPG-Server.csproj", "{1BCFB3B4-64C9-4DF9-9DBC-597B20C6D19C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1BCFB3B4-64C9-4DF9-9DBC-597B20C6D19C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BCFB3B4-64C9-4DF9-9DBC-597B20C6D19C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BCFB3B4-64C9-4DF9-9DBC-597B20C6D19C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BCFB3B4-64C9-4DF9-9DBC-597B20C6D19C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
