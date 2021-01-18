@@ -6,7 +6,7 @@ namespace MMORPG_Server {
             int clientIdCheck = packet.ReadInt();
             string username = packet.ReadString();
             Console.WriteLine($"\n### TCP WELCOME PACKAGE REPLY ### \n" +
-                              $"REPLY: {Server.clients[clientId].tcp.socket.Client.RemoteEndPoint} " +
+                              $"REPLY: {Server._Clients[clientId].Tcp.socket.Client.RemoteEndPoint} " +
                               $"name: {username} " +
                               $"connected successfully and received the welcome package. " +
                               $"Client is now player {clientId}.");

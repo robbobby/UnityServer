@@ -225,6 +225,14 @@ namespace MMORPG_Server.Package {
                 throw new Exception("Could not read value of type 'int'!");
             }
         }
+        
+        /// <summary>
+        /// Reads the packet length before unpacking the message
+        /// </summary>
+        /// <returns></returns>
+        public int ReadPacketLength() {
+            return ReadInt();
+        }
 
         /// <summary>Reads a long from the packet.</summary>
         /// <param name="moveReadPos">Whether or not to move the buffer's read position.</param>
@@ -318,13 +326,6 @@ namespace MMORPG_Server.Package {
         public void Dispose() {
             Dispose(true);
             GC.SuppressFinalize(this);
-        }
-    /// <summary>
-    /// Reads the packet length before unpacking the message
-    /// </summary>
-    /// <returns></returns>
-        public int ReadPacketLength() {
-            return ReadInt();
         }
     }
 }
