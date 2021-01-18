@@ -2,15 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MMORPG_Server.Packet {
+namespace MMORPG_Server.Package {
     /// <summary>Sent from server to client.</summary>
     public enum ServerPackets {
-        Welcome = 1
+        Welcome = 1,
+        UdpTest
     }
 
     /// <summary>Sent from client to server.</summary>
     public enum ClientPackets {
-        WelcomeReceived = 1
+        WelcomeReceived = 1,
+        UdpTestReceived
     }
 
     public class Packet : IDisposable {
@@ -316,6 +318,13 @@ namespace MMORPG_Server.Packet {
         public void Dispose() {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+    /// <summary>
+    /// Reads the packet length before unpacking the message
+    /// </summary>
+    /// <returns></returns>
+        public int ReadPacketLength() {
+            return ReadInt();
         }
     }
 }
