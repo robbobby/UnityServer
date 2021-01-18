@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using MMORPG_Server.Main.Networking;
+using MMORPG_Server.Network.Handlers;
 using MMORPG_Server.Package;
 using static MMORPG_Server.Main.ServerConfigConstants;
 
@@ -92,10 +93,7 @@ namespace MMORPG_Server {
                 _Clients.Add(i, new Client(i));
             }
 
-            packetHandlers = new Dictionary<int, PacketHandler> {
-                {(int) ClientPackets.WelcomeReceived, ServerHandle.WelcomeReceived},
-                {(int) ClientPackets.UdpTestReceived, ServerHandle.UdpTestReceived}
-            };
+            packetHandlers = PackagesToHandle.GetPackages();
             Console.WriteLine("Initialised packets");
         }
     }

@@ -10,10 +10,6 @@ namespace MMORPG_Server.Package {
     }
 
     /// <summary>Sent from client to server.</summary>
-    public enum ClientPackets {
-        WelcomeReceived = 1,
-        UdpTestReceived
-    }
 
     public class Packet : IDisposable {
         private List<byte> buffer;

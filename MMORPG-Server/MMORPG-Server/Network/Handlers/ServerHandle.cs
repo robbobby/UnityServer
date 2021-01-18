@@ -1,6 +1,6 @@
 using System;
 
-namespace MMORPG_Server {
+namespace MMORPG_Server.Network.Handlers {
     public class ServerHandle {
         public static void WelcomeReceived(int clientId, Package.Packet packet) {
             int clientIdCheck = packet.ReadInt();
