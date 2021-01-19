@@ -2,6 +2,8 @@ using System;
 
 namespace MMORPG_Server.Network.Handlers {
     public class ServerHandle {
+        
+        // Add new listener logic here
         public static void WelcomeReceived(int clientId, Package.Packet packet) {
             int clientIdCheck = packet.ReadInt();
             string username = packet.ReadString();

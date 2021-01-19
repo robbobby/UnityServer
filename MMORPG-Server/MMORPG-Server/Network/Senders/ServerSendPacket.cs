@@ -1,7 +1,12 @@
 using MMORPG_Server.Main.Networking;
 using MMORPG_Server.Package;
 
-namespace MMORPG_Server {
+namespace MMORPG_Server.Network.Senders {
+    /// <summary>
+    /// Add the package to the ClientPackets Enum,
+    /// Write the sender for that package in the ServerSendPacket class
+    /// Done - call the send when you need it
+    /// </summary>
     public enum ServerPackets {
         Welcome = 1,
         UdpTest
