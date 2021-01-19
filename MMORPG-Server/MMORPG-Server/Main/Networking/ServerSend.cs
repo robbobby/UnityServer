@@ -2,7 +2,7 @@ using System;
 using MMORPG_Server.Package;
 using static MMORPG_Server.Main.ServerConfigConstants;
 
-namespace MMORPG_Server {
+namespace MMORPG_Server.Main.Networking {
 
     public abstract class ServerSend {
         #region TCP Send Package functions

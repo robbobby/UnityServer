@@ -4,10 +4,7 @@ using System.Text;
 
 namespace MMORPG_Server.Package {
     /// <summary>Sent from server to client.</summary>
-    public enum ServerPackets {
-        Welcome = 1,
-        UdpTest
-    }
+
 
     /// <summary>Sent from client to server.</summary>
 
