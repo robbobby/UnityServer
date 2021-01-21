@@ -1,16 +1,21 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Numerics;
 using MMORPG_Server.Network.Senders;
-using MMORPG_Server.Package;
+using MMORPG_Server.ClientEntity;
+using Packet = MMORPG_Server.Package.Packet;
 
 namespace MMORPG_Server.Main.Networking {
     public class Client {
+        private int id;
         private const int DATA_BUFFER_SIZE = 4096;
         public TCP Tcp { get; }
         public UDP Udp { get; }
+        public Player Player { get; private set; }
 
         public Client(int id) {
+            this.id = id;
             Tcp = new TCP(id);
             Udp = new UDP(id);
         }
@@ -41,7 +46,7 @@ namespace MMORPG_Server.Main.Networking {
                 receivedData = new Packet();
                 receiverBuffer = new byte[DATA_BUFFER_SIZE];
                 stream.BeginRead(receiverBuffer, 0, DATA_BUFFER_SIZE, ReceiveCallBack, null);
-                ServerSendPacket.Welcome(id, "Welcome to the server!");
+                ServerSend.Welcome(id, "Welcome to the server!");
             }
 
             public void SendData(Packet packet) {
@@ -101,7 +106,9 @@ namespace MMORPG_Server.Main.Networking {
             }
         }
         #endregion
+        // ######################################################################################################## //
 
+        #region UDP
         // ReSharper disable once InconsistentNaming
         public class UDP {
             public IPEndPoint endPoint;
@@ -112,7 +119,6 @@ namespace MMORPG_Server.Main.Networking {
 
             public void Connect(IPEndPoint ipEndPoint) {
                 endPoint = ipEndPoint;
-                ServerSendPacket.UdpTest(id);
             }
 
             public void SendData(Packet packet) {
@@ -130,6 +136,32 @@ namespace MMORPG_Server.Main.Networking {
                 });
             }
         }
+        #endregion
+
         
+        // Todo: Can we combine these 2 loops into 1? 
+        public void SendIntoGame(string playerName) {
+            Player = new Player(id, playerName, new Vector3(0, 0, 0));
+            // for(int i = 0; i < Server._Clients.Values.Count; i++)
+            // Send to all other clients
+            foreach (Client client in Server._Clients.Values)
+            {
+                if (client.Player != null) {
+                    if (client.id != id) {
+                        ServerSend.SpawnPlayer(id, client.Player);
+                        Console.WriteLine("Added player");
+                    }
+                }
+            }
+
+            // Send to Client player
+            // for(int i = 0; i < Server._Clients.Values.Count; i++) {
+            foreach (Client client in Server._Clients.Values) {
+                if (client.Player != null) {
+                    ServerSend.SpawnPlayer(client.id, Player);
+                        Console.WriteLine("Added player TO ALL CLIENTS");
+                }
+            }
+        }
     }
 }

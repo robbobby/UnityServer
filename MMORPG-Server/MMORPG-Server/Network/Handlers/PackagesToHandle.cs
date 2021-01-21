@@ -12,15 +12,16 @@ namespace MMORPG_Server.Network.Handlers {
     public static class PackagesToHandle {
         public static Dictionary<int, Server.PacketHandler> GetPackages() {
             return new() {
-                {(int) ClientPackets.WelcomeReceived, ServerHandle.WelcomeReceived},
-                {(int) ClientPackets.UdpTestReceived, ServerHandle.UdpTestReceived}
+                {(int) PackageId.WelcomeReceived, ServerHandle.WelcomeReceived},
+                {(int) PackageId.PlayerMovement, ServerHandle.PlayerMovement}
+                
                 // Add packages here
             };
         }
-
-        private enum ClientPackets {
+// ######################################################################################################## //
+        private enum PackageId {
             WelcomeReceived = 1,
-            UdpTestReceived
+            PlayerMovement
             // Add package index here
         }
     }

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using MMORPG_Server.Main.Networking;
 using MMORPG_Server.Network.Handlers;
 using MMORPG_Server.Package;
@@ -30,6 +32,7 @@ namespace MMORPG_Server {
         }
 
         private static void UdpReceiveCallBack(IAsyncResult result) {
+                Console.WriteLine("Received UDP Package");
             try {
                 IPEndPoint clientEndPoint = new IPEndPoint(IPAddress.Any, 0);
                 byte[] data = _udpListener.EndReceive(result, ref clientEndPoint);
@@ -57,6 +60,7 @@ namespace MMORPG_Server {
         }
 
         public static void SendUdpData(IPEndPoint clientEndPoint, Packet packet) {
+            LogPosition.Log("Attacking to send package");
             try {
                 if (clientEndPoint != null) {
                     _udpListener.BeginSend(packet.ToArray(), packet.Length(),
